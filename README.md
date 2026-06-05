@@ -34,7 +34,7 @@ Helps students explore suitable tech careers
 Useful for AI/ML beginners building recommendation systems
 Demonstrates real-world application of NLP + ML fundamentals
 graph TD;
-HOW IT WORKS:
+STRUCTURE OF WORKING:
 User Skills
      ↓
 Text Vectorization (CountVectorizer)
