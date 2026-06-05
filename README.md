@@ -34,6 +34,16 @@ Helps students explore suitable tech careers
 Useful for AI/ML beginners building recommendation systems
 Demonstrates real-world application of NLP + ML fundamentals
 graph TD;
+HOW IT WORKS:
+User Skills
+     ↓
+Text Vectorization (CountVectorizer)
+     ↓
+Cosine Similarity Calculation
+     ↓
+Similarity Scoring Engine
+     ↓
+Ranked Career Recommendations
 
 
 # =============================================================================
