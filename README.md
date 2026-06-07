@@ -1,278 +1,106 @@
-# AI-Career-Recommendation-Engine
-AI Career Path Recommendation System
+# AI Career Recommendation Engine
 
-An intelligent content-based recommendation system that suggests suitable career paths based on user-provided technical skills and interests. The system leverages Natural Language Processing concepts, Vectorization, and Cosine Similarity to compute similarity between user profiles and predefined career profiles.
+## Overview
 
-🚀 Features
- -AI-based career matching using Cosine Similarity
- -Content-based filtering approach (no external dataset required)
- -Personalized career recommendations based on:
-Technical skills
-Domain interests
-Experience level
-📚 Built-in career knowledge base (AI, Data Science, DevOps, Software Engineering)
-💻 Interactive command-line interface
-🔁 Multi-session support (run multiple recommendations in one session)
-🛠️ Tech Stack
-Python 
-Scikit-learn
-CountVectorizer (Vectorization)
-Cosine Similarity
-Object-based recommendation logic
-# How It Works
-User enters their skills (e.g., Python, SQL, Machine Learning)
-System converts skills into a vector representation
-Each career profile is also vectorized
-Cosine similarity is used to compute match scores
-Top matching careers are displayed in ranked order
-Example Output
-#1 Data Scientist → 92.5% match
-#2 Machine Learning Engineer → 87.3% match
-#3 AI Engineer → 81.6% match
-🎯 Use Case
-Helps students explore suitable tech careers
-Useful for AI/ML beginners building recommendation systems
-Demonstrates real-world application of NLP + ML fundamentals
-graph TD;
-STRUCTURE OF WORKING:
+The AI Career Recommendation Engine is a content-based recommendation system that suggests suitable technology career paths based on a user's technical skills. The system applies Natural Language Processing concepts, vectorization techniques, and cosine similarity to identify careers that best match the user's profile.
+
+This project demonstrates the core principles behind modern recommendation systems used by platforms such as LinkedIn, Netflix, and Spotify.
+
+---
+
+## Objectives
+
+* Build a content-based recommendation system.
+* Implement skill-based career matching.
+* Apply vectorization techniques.
+* Use cosine similarity for similarity measurement.
+* Generate personalized career recommendations.
+
+---
+
+## Features
+
+* Skill-based career profiling
+* Content-Based Filtering
+* Vectorization using CountVectorizer
+* Cosine Similarity computation
+* Ranked recommendation system
+* Interactive command-line interface
+* Multiple recommendation sessions
+
+---
+
+## Technologies Used
+
+* Python
+* Scikit-Learn
+* CountVectorizer
+* Cosine Similarity
+
+---
+
+## Recommendation Workflow
+
 User Skills
-     ↓
-Text Vectorization (CountVectorizer)
-     ↓
-Cosine Similarity Calculation
-     ↓
-Similarity Scoring Engine
-     ↓
-Ranked Career Recommendations
+↓
+Text Preprocessing
+↓
+Vectorization
+↓
+Cosine Similarity
+↓
+Similarity Scoring
+↓
+Career Ranking
+↓
+Recommendation Output
 
+---
 
-# =============================================================================
-# DecodeLabs | Project 3
-# AI Career Path Recommendation System
-# Method: Content-Based Filtering + Cosine Similarity
-# =============================================================================
+## Recommendation Technique
 
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+### Content-Based Filtering
 
-# =============================================================================
-# CAREER DATABASE
-# =============================================================================
+The system compares user skills with predefined career profiles and recommends careers that share the highest similarity.
 
-CAREERS = [
+### Vectorization
 
-{
-    "career":"Data Scientist",
-    "skills":"python sql statistics machine_learning data_analysis"
-},
+Skills are converted into numerical vectors using CountVectorizer so that textual information can be processed mathematically.
 
-{
-    "career":"Machine Learning Engineer",
-    "skills":"python machine_learning tensorflow pytorch deep_learning"
-},
+### Cosine Similarity
 
-{
-    "career":"AI Engineer",
-    "skills":"python ai deep_learning nlp tensorflow"
-},
+Cosine Similarity measures the angle between vectors and determines how closely a user's skill profile matches a career profile.
 
-{
-    "career":"Computer Vision Engineer",
-    "skills":"python opencv cnn deep_learning image_processing"
-},
+---
 
-{
-    "career":"NLP Engineer",
-    "skills":"python nlp transformers llm deep_learning"
-},
+## Example Input
 
-{
-    "career":"Data Analyst",
-    "skills":"sql excel power_bi python analytics"
-},
-
-{
-    "career":"Backend Developer",
-    "skills":"python django sql api backend"
-},
-
-{
-    "career":"DevOps Engineer",
-    "skills":"linux docker kubernetes aws cloud"
-}
-
-]
-
-# =============================================================================
-# INPUT
-# =============================================================================
-
-def collect_user_profile():
-
-    print("\n" + "="*60)
-    print("AI CAREER RECOMMENDATION SYSTEM")
-    print("="*60)
-
-    # ---------------------------------------------------------
-    # Career Profile Setup Message
-    # ---------------------------------------------------------
-
-    print("\n" + "=" * 60)
-    print("CAREER RECOMMENDATION PROFILE SETUP")
-    print("=" * 60)
-
-    print("""
-Provide the technical skills you are familiar with.
-These skills will be analyzed using Content-Based
-Filtering and Cosine Similarity to identify career
-paths that best match your profile.
-
-Supported Domains:
-
-• Artificial Intelligence & Machine Learning
-• Data Science & Analytics
-• Software Development
-• Cloud Computing & DevOps
-
-Sample Skills:
-
-AI & Machine Learning:
-  python, machine learning, deep learning,
-  tensorflow, pytorch, nlp, transformers,
-  computer vision, opencv, cnn
-
-Data Science:
-  sql, statistics, pandas, numpy,
-  data analysis, power bi, excel
-
-Software Development:
-  python, java, c++, django,
-  flask, api, backend
-
-Cloud & DevOps:
-  linux, docker, kubernetes,
-  aws, cloud, automation
-
-Example Input:
 python, machine learning, sql
-""")
 
-    user_skills = input(
-        "\nEnter your skills (comma separated): "
-    ).lower()
+---
 
-    skills = [
-        s.strip().replace(" ", "_")
-        for s in user_skills.split(",")
-        if s.strip()
-    ]
+## Example Output
 
-    return " ".join(skills)
-# =============================================================================
-# PROCESS
-# =============================================================================
+1. Data Scientist
+2. Machine Learning Engineer
+3. AI Engineer
 
-def recommend_careers(user_profile):
+---
+ 
 
-    career_names = []
+## Learning Outcomes
 
-    documents = []
+This project helped in understanding:
 
-    documents.append(user_profile)
+* Recommendation Systems
+* Content-Based Filtering
+* Natural Language Processing Fundamentals
+* Vector Space Models
+* Cosine Similarity
+* Personalized Recommendation Logic
 
-    for career in CAREERS:
+---
 
-        documents.append(
-            career["skills"]
-        )
-
-        career_names.append(
-            career["career"]
-        )
-
-    # Vector Mapping
-    vectorizer = CountVectorizer()
-
-    vectors = vectorizer.fit_transform(
-        documents
-    )
-
-    # Cosine Similarity
-    similarities = cosine_similarity(
-        vectors[0:1],
-        vectors[1:]
-    )[0]
-
-    results = []
-
-    for i, score in enumerate(similarities):
-
-        results.append(
-            (
-                career_names[i],
-                score
-            )
-        )
-
-    results.sort(
-        key=lambda x: x[1],
-        reverse=True
-    )
-
-    return results
-
-# =============================================================================
-# OUTPUT
-# =============================================================================
-
-def display_results(results):
-
-    print("\n" + "="*60)
-    print("TOP CAREER RECOMMENDATIONS")
-    print("="*60)
-
-    for rank, (career, score) in enumerate(results[:5], start=1):
-
-        percentage = score * 100
-
-        bar = "█" * int(percentage / 5)
-
-        print(
-            f"\n#{rank} {career}"
-        )
-
-        print(
-            f"Match: {percentage:.2f}%"
-        )
-
-        print(
-            f"[{bar}]"
-        )
-
-# =============================================================================
-# MAIN
-# =============================================================================
-
-def run():
-
-    while True:
-
-        profile = collect_user_profile()
-
-        results = recommend_careers(profile)
-
-        display_results(results)
-
-        again = input(
-            "\nWould you like another career recommendation? (yes/no): "
-        ).strip().lower()
-
-        if again in ["yes", "y"]:
-            continue
-
-        print("\nThank you for using the AI Career Recommendation System.")
-        print("=" * 60)
-        break
-
-if __name__ == "__main__":
-    run()
+## Author
+TOOBA FATIMA
+DecodeLabs AI Industrial Training Program – Batch 2026
